@@ -1,0 +1,1354 @@
+{
+  "dedicated": {
+    "slug": "dedicated",
+    "create": {
+      "method": "POST",
+      "path": "/products/dedicated/servers",
+      "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedServerController.php:107",
+      "required_fields": [
+        "plan_id",
+        "hostname"
+      ],
+      "response_id_path": "data.server.id",
+      "body": {
+        "type": "object",
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "description": "Plan ID",
+            "x-validation": [
+              "required",
+              "string",
+              "exists:dedicated_plans,id"
+            ],
+            "x-validation-expressions": []
+          },
+          "hostname": {
+            "type": "string",
+            "description": "Server hostname",
+            "maxLength": 255,
+            "x-validation": [
+              "required",
+              "string",
+              "max:255"
+            ],
+            "x-validation-expressions": []
+          },
+          "ipv4_count": {
+            "type": "integer",
+            "description": "Number of IPv4 addresses",
+            "minimum": 1,
+            "maximum": 16,
+            "nullable": true,
+            "x-validation": [
+              "nullable",
+              "integer",
+              "min:1",
+              "max:16"
+            ],
+            "x-validation-expressions": []
+          },
+          "ipv6_count": {
+            "type": "integer",
+            "description": "Number of IPv6 subnets",
+            "minimum": 0,
+            "maximum": 4,
+            "nullable": true,
+            "x-validation": [
+              "nullable",
+              "integer",
+              "min:0",
+              "max:4"
+            ],
+            "x-validation-expressions": []
+          },
+          "os_profile_id": {
+            "type": "integer",
+            "description": "OS profile id to install",
+            "nullable": true,
+            "x-validation": [
+              "nullable",
+              "integer"
+            ],
+            "x-validation-expressions": []
+          },
+          "root_password": {
+            "type": "string",
+            "description": "Root password",
+            "minLength": 8,
+            "nullable": true,
+            "x-validation": [
+              "nullable",
+              "string",
+              "min:8"
+            ],
+            "x-validation-expressions": []
+          },
+          "auto_renew": {
+            "type": "boolean",
+            "description": "Enable auto-renew",
+            "nullable": true,
+            "x-validation": [
+              "nullable",
+              "boolean"
+            ],
+            "x-validation-expressions": []
+          },
+          "disk_layout_id": {
+            "type": "integer",
+            "nullable": true,
+            "x-validation": [
+              "nullable",
+              "integer"
+            ],
+            "x-validation-expressions": []
+          },
+          "team_id": {
+            "type": "string",
+            "nullable": true,
+            "x-validation": [
+              "nullable",
+              "string"
+            ],
+            "x-validation-expressions": []
+          },
+          "traffic_upgrade_key": {
+            "type": "string",
+            "nullable": true,
+            "x-validation": [
+              "nullable",
+              "string"
+            ],
+            "x-validation-expressions": []
+          }
+        },
+        "additionalProperties": true,
+        "required": [
+          "plan_id",
+          "hostname"
+        ]
+      },
+      "bodyRequired": true,
+      "pathParameters": [],
+      "query": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": true
+      },
+      "permissions": [
+        "dedicated:create"
+      ],
+      "responseMode": "json"
+    },
+    "termination": {
+      "method": "DELETE",
+      "path": "/products/dedicated/servers/{server}",
+      "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedServerController.php:188",
+      "semantics": "Term-based servers stop renewing; owned hardware terminates immediately",
+      "body": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": true
+      },
+      "bodyRequired": false,
+      "pathParameters": [
+        {
+          "name": "server",
+          "type": "string",
+          "description": "server route parameter"
+        }
+      ],
+      "query": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": true
+      },
+      "permissions": [
+        "dedicated:delete"
+      ],
+      "responseMode": "json"
+    },
+    "suspend": null,
+    "unsuspend": null,
+    "notes": [
+      "auto_renew defaults true",
+      "No suspend/unsuspend endpoint"
+    ],
+    "displayName": "Dedicated Server",
+    "module": "yourresellingdedicated",
+    "show": {
+      "id": "GET /products/dedicated/servers/{server}",
+      "group": "dedicated",
+      "name": "serversShow",
+      "method": "GET",
+      "path": "/products/dedicated/servers/{server}",
+      "summary": "Show dedicated server",
+      "description": "Returns detailed information about a dedicated server.",
+      "germanSummary": "Dedizierten Server anzeigen",
+      "permissions": [
+        "dedicated:read"
+      ],
+      "authenticated": true,
+      "pathParameters": [
+        {
+          "name": "server",
+          "type": "string",
+          "description": "server route parameter"
+        }
+      ],
+      "query": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": true
+      },
+      "body": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": true
+      },
+      "bodyRequired": false,
+      "requestContentType": "application/json",
+      "responseMode": "json",
+      "responses": [
+        {
+          "status": 200,
+          "description": "Server details",
+          "germanDescription": "Server-Details",
+          "schema": null,
+          "example": null,
+          "contentType": "application/json"
+        }
+      ],
+      "deprecated": false,
+      "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedServerController.php:74",
+      "routeName": "api.dedicated.servers.show"
+    },
+    "showDataPath": "data.server",
+    "activeStatuses": [
+      "running"
+    ],
+    "views": {
+      "serversShow": {
+        "id": "GET /products/dedicated/servers/{server}",
+        "group": "dedicated",
+        "name": "serversShow",
+        "method": "GET",
+        "path": "/products/dedicated/servers/{server}",
+        "summary": "Show dedicated server",
+        "description": "Returns detailed information about a dedicated server.",
+        "germanSummary": "Dedizierten Server anzeigen",
+        "permissions": [
+          "dedicated:read"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "body": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "bodyRequired": false,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "Server details",
+            "germanDescription": "Server-Details",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedServerController.php:74",
+        "routeName": "api.dedicated.servers.show"
+      },
+      "agentInstall": {
+        "id": "GET /products/dedicated/servers/{server}/agent/install",
+        "group": "dedicated",
+        "name": "agentInstall",
+        "method": "GET",
+        "path": "/products/dedicated/servers/{server}/agent/install",
+        "summary": "Get agent install command",
+        "description": "Returns the white-label one-liner (Linux + Windows) to manually install the monitoring agent on the server, plus whether the agent is currently online.",
+        "germanSummary": "Agent-Installationsbefehl abrufen",
+        "permissions": [
+          "dedicated:read"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "body": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "bodyRequired": false,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "Install command",
+            "germanDescription": "Installationsbefehl",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedAgentController.php:110",
+        "routeName": "api.dedicated.agent.install"
+      },
+      "consoleShow": {
+        "id": "GET /products/dedicated/servers/{server}/console",
+        "group": "dedicated",
+        "name": "consoleShow",
+        "method": "GET",
+        "path": "/products/dedicated/servers/{server}/console",
+        "summary": "Get KVM/VNC console URL",
+        "description": "Returns a time-limited KVM/VNC console URL for the server.",
+        "germanSummary": "KVM/VNC-Konsolen-URL abrufen",
+        "permissions": [
+          "dedicated:update"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "body": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "bodyRequired": false,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "Console URL",
+            "germanDescription": "Konsolen-URL",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedConsoleController.php:30",
+        "routeName": "api.dedicated.console.show"
+      },
+      "ipsAssignable": {
+        "id": "GET /products/dedicated/servers/{server}/ips/assignable",
+        "group": "dedicated",
+        "name": "ipsAssignable",
+        "method": "GET",
+        "path": "/products/dedicated/servers/{server}/ips/assignable",
+        "summary": "List assignable IPs",
+        "description": "Returns free panel-managed IPs at the server's location that can be assigned.",
+        "germanSummary": "Zuweisbare IPs auflisten",
+        "permissions": [
+          "dedicated:read"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "body": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "bodyRequired": false,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "Assignable IPs",
+            "germanDescription": "Zuweisbare IPs",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedIpController.php:83",
+        "routeName": "api.dedicated.ips.assignable"
+      },
+      "networkShow": {
+        "id": "GET /products/dedicated/servers/{server}/network",
+        "group": "dedicated",
+        "name": "networkShow",
+        "method": "GET",
+        "path": "/products/dedicated/servers/{server}/network",
+        "summary": "Get live network state",
+        "description": "Returns the server's live IP assignments (from the provider), power status, primary IP and provider capabilities.",
+        "germanSummary": "Live-Netzwerkstatus abrufen",
+        "permissions": [
+          "dedicated:read"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "body": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "bodyRequired": false,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "Network state",
+            "germanDescription": "Netzwerkstatus",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedIpController.php:37",
+        "routeName": "api.dedicated.network.show"
+      },
+      "reinstallTemplates": {
+        "id": "GET /products/dedicated/servers/{server}/os-templates",
+        "group": "dedicated",
+        "name": "reinstallTemplates",
+        "method": "GET",
+        "path": "/products/dedicated/servers/{server}/os-templates",
+        "summary": "List OS templates",
+        "description": "Returns the available OS and rescue profiles for reinstalling the server.",
+        "germanSummary": "OS-Vorlagen auflisten",
+        "permissions": [
+          "dedicated:read"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "body": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "bodyRequired": false,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "OS templates",
+            "germanDescription": "OS-Vorlagen",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedReinstallController.php:35",
+        "routeName": "api.dedicated.reinstall.templates"
+      },
+      "powerStatus": {
+        "id": "GET /products/dedicated/servers/{server}/power",
+        "group": "dedicated",
+        "name": "powerStatus",
+        "method": "GET",
+        "path": "/products/dedicated/servers/{server}/power",
+        "summary": "Get power status",
+        "description": "Returns the current power status of the server.",
+        "germanSummary": "Power-Status abrufen",
+        "permissions": [
+          "dedicated:read"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "body": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "bodyRequired": false,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "Power status",
+            "germanDescription": "Power-Status",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedPowerController.php:34",
+        "routeName": "api.dedicated.power.status"
+      },
+      "sshKeysIndex": {
+        "id": "GET /products/dedicated/servers/{server}/ssh-keys",
+        "group": "dedicated",
+        "name": "sshKeysIndex",
+        "method": "GET",
+        "path": "/products/dedicated/servers/{server}/ssh-keys",
+        "summary": "List SSH keys",
+        "description": "Returns the SSH public keys registered for the server.",
+        "germanSummary": "SSH-Keys auflisten",
+        "permissions": [
+          "dedicated:read"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "body": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "bodyRequired": false,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "SSH key list",
+            "germanDescription": "SSH-Key-Liste",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedSshKeyController.php:32",
+        "routeName": "api.dedicated.ssh-keys.index"
+      },
+      "statsShow": {
+        "id": "GET /products/dedicated/servers/{server}/stats",
+        "group": "dedicated",
+        "name": "statsShow",
+        "method": "GET",
+        "path": "/products/dedicated/servers/{server}/stats",
+        "summary": "Get server stats",
+        "description": "Returns the live agent snapshot (CPU/RAM/disk/uptime, per-core, per-disk, per-interface) and a historical time series for the given range.",
+        "germanSummary": "Server-Statistiken abrufen",
+        "permissions": [
+          "dedicated:read"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {
+            "range": {
+              "description": "1h, 24h (default), 7d or 30d",
+              "type": "string"
+            },
+            "max_points": {}
+          },
+          "additionalProperties": true,
+          "required": []
+        },
+        "body": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "bodyRequired": false,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "Server stats",
+            "germanDescription": "Server-Statistiken",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedStatsController.php:34",
+        "routeName": "api.dedicated.stats.show"
+      },
+      "tasksIndex": {
+        "id": "GET /products/dedicated/servers/{server}/tasks",
+        "group": "dedicated",
+        "name": "tasksIndex",
+        "method": "GET",
+        "path": "/products/dedicated/servers/{server}/tasks",
+        "summary": "List scheduled tasks",
+        "description": "Returns the scheduled agent tasks for the server.",
+        "germanSummary": "Geplante Aufgaben auflisten",
+        "permissions": [
+          "dedicated:read"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "body": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "bodyRequired": false,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "Task list",
+            "germanDescription": "Aufgabenliste",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedTaskController.php:34",
+        "routeName": "api.dedicated.tasks.index"
+      },
+      "trafficShow": {
+        "id": "GET /products/dedicated/servers/{server}/traffic",
+        "group": "dedicated",
+        "name": "trafficShow",
+        "method": "GET",
+        "path": "/products/dedicated/servers/{server}/traffic",
+        "summary": "Get traffic statistics",
+        "description": "Returns the traffic series for the selected window (24h, 7d, 30d).",
+        "germanSummary": "Traffic-Statistik abrufen",
+        "permissions": [
+          "dedicated:read"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {
+            "window": {
+              "description": "Time window (24h, 7d, 30d)",
+              "type": "string",
+              "default": "24h"
+            }
+          },
+          "additionalProperties": true,
+          "required": []
+        },
+        "body": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "bodyRequired": false,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "Traffic statistics",
+            "germanDescription": "Traffic-Statistik",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedTrafficController.php:32",
+        "routeName": "api.dedicated.traffic.show"
+      },
+      "updatesStatus": {
+        "id": "GET /products/dedicated/servers/{server}/updates",
+        "group": "dedicated",
+        "name": "updatesStatus",
+        "method": "GET",
+        "path": "/products/dedicated/servers/{server}/updates",
+        "summary": "Get pending updates",
+        "description": "Returns the pending package updates last reported by the agent (counts, package manager, per-package list incl. security/CVE flags).",
+        "germanSummary": "Ausstehende Updates abrufen",
+        "permissions": [
+          "dedicated:read"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "body": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "bodyRequired": false,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "Pending updates",
+            "germanDescription": "Ausstehende Updates",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedUpdateController.php:32",
+        "routeName": "api.dedicated.updates.status"
+      }
+    },
+    "controls": {
+      "rdnsStore": {
+        "id": "POST /products/dedicated/servers/{server}/rdns",
+        "group": "dedicated",
+        "name": "rdnsStore",
+        "method": "POST",
+        "path": "/products/dedicated/servers/{server}/rdns",
+        "summary": "Set PTR record",
+        "description": "Sets the reverse DNS (PTR) record for an IP.",
+        "germanSummary": "PTR-Eintrag setzen",
+        "permissions": [
+          "dedicated:update"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "ip": {
+              "type": "string",
+              "description": "IP address",
+              "x-validation": [
+                "required",
+                "string"
+              ],
+              "x-validation-expressions": []
+            },
+            "ptr": {
+              "type": "string",
+              "description": "FQDN hostname",
+              "maxLength": 253,
+              "x-validation": [
+                "required",
+                "string",
+                "max:253"
+              ],
+              "x-validation-expressions": []
+            }
+          },
+          "additionalProperties": true,
+          "required": [
+            "ip",
+            "ptr"
+          ]
+        },
+        "bodyRequired": true,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "PTR set",
+            "germanDescription": "PTR gesetzt",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedRdnsController.php:68",
+        "routeName": "api.dedicated.rdns.store",
+        "label": "Reverse DNS ändern"
+      },
+      "reinstallAbort": {
+        "id": "POST /products/dedicated/servers/{server}/reinstall/abort",
+        "group": "dedicated",
+        "name": "reinstallAbort",
+        "method": "POST",
+        "path": "/products/dedicated/servers/{server}/reinstall/abort",
+        "summary": "Abort reinstall",
+        "description": "Aborts a running reinstall.",
+        "germanSummary": "Neuinstallation abbrechen",
+        "permissions": [
+          "dedicated:update"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "body": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "bodyRequired": false,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "Reinstall aborted",
+            "germanDescription": "Neuinstallation abgebrochen",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedReinstallController.php:104",
+        "routeName": "api.dedicated.reinstall.abort",
+        "label": "Neuinstallation abbrechen"
+      },
+      "serversRename": {
+        "id": "PATCH /products/dedicated/servers/{server}/rename",
+        "group": "dedicated",
+        "name": "serversRename",
+        "method": "PATCH",
+        "path": "/products/dedicated/servers/{server}/rename",
+        "summary": "Rename a dedicated server",
+        "description": "Updates the display name of a dedicated server.",
+        "germanSummary": "Dedizierten Server umbenennen",
+        "permissions": [
+          "dedicated:update"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "New display name",
+              "maxLength": 255,
+              "x-validation": [
+                "required",
+                "string",
+                "max:255"
+              ],
+              "x-validation-expressions": []
+            }
+          },
+          "additionalProperties": true,
+          "required": [
+            "name"
+          ]
+        },
+        "bodyRequired": true,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "Server renamed",
+            "germanDescription": "Server umbenannt",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedServerController.php:161",
+        "routeName": "api.dedicated.servers.rename",
+        "label": "Umbenennen"
+      },
+      "updatesInstall": {
+        "id": "POST /products/dedicated/servers/{server}/updates/install",
+        "group": "dedicated",
+        "name": "updatesInstall",
+        "method": "POST",
+        "path": "/products/dedicated/servers/{server}/updates/install",
+        "summary": "Install updates",
+        "description": "Queues installation of pending updates. Set security_only=true for security updates only. The agent applies them and re-reports afterwards. Returns a task id.",
+        "germanSummary": "Updates installieren",
+        "permissions": [
+          "dedicated:update"
+        ],
+        "authenticated": true,
+        "pathParameters": [
+          {
+            "name": "server",
+            "type": "string",
+            "description": "server route parameter"
+          }
+        ],
+        "query": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "security_only": {
+              "type": "boolean",
+              "description": "Install only security updates"
+            }
+          },
+          "additionalProperties": true,
+          "required": []
+        },
+        "bodyRequired": false,
+        "requestContentType": "application/json",
+        "responseMode": "json",
+        "responses": [
+          {
+            "status": 200,
+            "description": "Install queued",
+            "germanDescription": "Installation eingereiht",
+            "schema": null,
+            "example": null,
+            "contentType": "application/json"
+          }
+        ],
+        "deprecated": false,
+        "source": "app/Http/Controllers/Api/V1/Dedicated/DedicatedUpdateController.php:65",
+        "routeName": "api.dedicated.updates.install",
+        "label": "Updates installieren"
+      }
+    },
+    "customerFields": [
+      "hostname"
+    ],
+    "fields": [
+      {
+        "name": "hostname",
+        "path": false,
+        "required": true,
+        "label": "Hostname",
+        "type": "string",
+        "description": "Server hostname",
+        "maxLength": 255,
+        "x-validation": [
+          "required",
+          "string",
+          "max:255"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "plan_id",
+        "path": false,
+        "required": true,
+        "label": "Tarif-ID",
+        "type": "string",
+        "description": "Plan ID",
+        "x-validation": [
+          "required",
+          "string",
+          "exists:dedicated_plans,id"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "auto_renew",
+        "path": false,
+        "required": false,
+        "label": "auto_renew",
+        "type": "boolean",
+        "description": "Enable auto-renew",
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "boolean"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "disk_layout_id",
+        "path": false,
+        "required": false,
+        "label": "disk_layout_id",
+        "type": "integer",
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "integer"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "ipv4_count",
+        "path": false,
+        "required": false,
+        "label": "IPv4-Adressen",
+        "type": "integer",
+        "description": "Number of IPv4 addresses",
+        "minimum": 1,
+        "maximum": 16,
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "integer",
+          "min:1",
+          "max:16"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "ipv6_count",
+        "path": false,
+        "required": false,
+        "label": "IPv6-Adressen",
+        "type": "integer",
+        "description": "Number of IPv6 subnets",
+        "minimum": 0,
+        "maximum": 4,
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "integer",
+          "min:0",
+          "max:4"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "os_profile_id",
+        "path": false,
+        "required": false,
+        "label": "os_profile_id",
+        "type": "integer",
+        "description": "OS profile id to install",
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "integer"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "root_password",
+        "path": false,
+        "required": false,
+        "label": "root_password",
+        "type": "string",
+        "description": "Root password",
+        "minLength": 8,
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "string",
+          "min:8"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "team_id",
+        "path": false,
+        "required": false,
+        "label": "team_id",
+        "type": "string",
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "string"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "traffic_upgrade_key",
+        "path": false,
+        "required": false,
+        "label": "traffic_upgrade_key",
+        "type": "string",
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "string"
+        ],
+        "x-validation-expressions": []
+      }
+    ],
+    "configFields": [
+      {
+        "name": "hostname",
+        "path": false,
+        "required": true,
+        "label": "Hostname",
+        "type": "string",
+        "description": "Server hostname",
+        "maxLength": 255,
+        "x-validation": [
+          "required",
+          "string",
+          "max:255"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "plan_id",
+        "path": false,
+        "required": true,
+        "label": "Tarif-ID",
+        "type": "string",
+        "description": "Plan ID",
+        "x-validation": [
+          "required",
+          "string",
+          "exists:dedicated_plans,id"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "auto_renew",
+        "path": false,
+        "required": false,
+        "label": "auto_renew",
+        "type": "boolean",
+        "description": "Enable auto-renew",
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "boolean"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "disk_layout_id",
+        "path": false,
+        "required": false,
+        "label": "disk_layout_id",
+        "type": "integer",
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "integer"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "ipv4_count",
+        "path": false,
+        "required": false,
+        "label": "IPv4-Adressen",
+        "type": "integer",
+        "description": "Number of IPv4 addresses",
+        "minimum": 1,
+        "maximum": 16,
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "integer",
+          "min:1",
+          "max:16"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "ipv6_count",
+        "path": false,
+        "required": false,
+        "label": "IPv6-Adressen",
+        "type": "integer",
+        "description": "Number of IPv6 subnets",
+        "minimum": 0,
+        "maximum": 4,
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "integer",
+          "min:0",
+          "max:4"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "os_profile_id",
+        "path": false,
+        "required": false,
+        "label": "os_profile_id",
+        "type": "integer",
+        "description": "OS profile id to install",
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "integer"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "root_password",
+        "path": false,
+        "required": false,
+        "label": "root_password",
+        "type": "string",
+        "description": "Root password",
+        "minLength": 8,
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "string",
+          "min:8"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "team_id",
+        "path": false,
+        "required": false,
+        "label": "team_id",
+        "type": "string",
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "string"
+        ],
+        "x-validation-expressions": []
+      },
+      {
+        "name": "traffic_upgrade_key",
+        "path": false,
+        "required": false,
+        "label": "traffic_upgrade_key",
+        "type": "string",
+        "nullable": true,
+        "x-validation": [
+          "nullable",
+          "string"
+        ],
+        "x-validation-expressions": []
+      }
+    ]
+  }
+}
